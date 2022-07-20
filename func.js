@@ -47,7 +47,7 @@ bot.onText(/\/dad/, function (msg, match) {
 
 // Listen for any kind of message. There are different kinds of messages.
 bot.on('message', (msg) => {
-    if((msg.text === "/start" || msg.text === "/echo" || msg.from.username === 'MX1010')) return; //!!!
+    if((msg.text === "/start" || msg.text === "/echo" || msg.from.username === 'MX1010A')) return; //!!!
     const chatId = msg.chat.id;
 
     if(counter === 100) {
