@@ -1,9 +1,9 @@
 const TelegramBot = require('node-telegram-bot-api');
-const token = '5439079424:AAHm0eUGqoNTs-uL2nfAruyNJI1oLiC6Lmg';
+const token = '5439079424:AAGPWS0dPrA7IWk3h3StauIdKL9u_VP4Il4';
 const bot = new TelegramBot(token, {polling: true});
 
 const default_phrases = ["ого", "лааадно", "найс", "справедливо", "туда его", "реально", "хвазхавхзвхза", "норм", "мдааа",
-    "хуй", "))", "такое", "хвхазвх", "челты", "понял", "азвахахвхах", "))0)", "харош", "кринж"];
+    "хуй", "))", "такое", "хвхазвх", "челты", "дефолт", "понял", "азвахахвхах", "))0)", "харош", "кринж", "лааааадно"];
 const dead_phrases = ["после такого хочется сдохнуть", "я умер 2 года назад, кст", "тильт",
     "скучаю по временам, когда меня еще не было", "нахуя я вообще живу, не понимаю"];
 const answer_phrases = ["хз", "нет", "да", "не шарю", "именно"];
@@ -83,8 +83,7 @@ bot.on('message', (msg) => {
     counter++;
 });
 
-/*bot.on('photo', (msg) => {
-    const chatId = msg.chat.id;
-    const replyId = msg.message_id;
-    bot.sendPhoto(chatId, msg.photo[0].file_id, {reply_to_message_id: replyId});
-});*/
+function random(maxValue) {
+    return Math.round(Math.random() * maxValue);
+}
+
