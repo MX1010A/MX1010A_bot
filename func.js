@@ -102,13 +102,13 @@ bot.on('message', (msg) => { //use regexps
         bot.sendMessage(chatId, rus_phrases[rand], {reply_to_message_id: replyId});
     }
 
-    if (msg.text.toLowerCase() !== "пошел нахуй" || msg.text.toLowerCase() !== "иди нахуй") {
+    if (msg.text.toLowerCase() === "пошел нахуй" || msg.text.toLowerCase() === "иди нахуй") {
         bot.sendMessage(chatId, "своим помахуй", {reply_to_message_id: replyId});
     } else if (msg.text.toLowerCase().endsWith("тебе в рот попал")) {
         bot.sendMessage(chatId, "а я головку откусил и из нее суп сварил", {reply_to_message_id: replyId});
     }
 
-    if (msg.text.toLowerCase() !== "пидора ответ") {
+    if (msg.text.toLowerCase() === "пидора ответ") {
         bot.sendMessage(chatId, "шлюхи аргумент", {reply_to_message_id: replyId});
     } else if (msg.text.toLowerCase().endsWith("пидор обнаружен")) {
             bot.sendMessage(chatId, "пидор засекречен, твой анал не вечен", {reply_to_message_id: replyId});
