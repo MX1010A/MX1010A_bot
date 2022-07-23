@@ -3,7 +3,8 @@ const token = process.env.BOT_TOKEN;
 const bot = new TelegramBot(token, {polling: true});
 
 const default_phrases = ["ого", "лааадно", "найс", "справедливо", "туда его", "реально", "хвазхавхзвхза", "норм", "мдааа",
-    "хуй", "))", "такое", "хвхазвх", "челты", "дефолт", "понял", "азвахахвхах", "))0)", "харош", "бля", "кринж", "лааааадно"];
+    "хуй", "))", "такое", "хвхазвх", "челты", "дефолт", "понял", "азвахахвхах", "))0)", "харош", ")", "бля", "кринж",
+    "лааааадно", "похуй"];
 const dead_phrases = ["после такого хочется сдохнуть", "я умер 2 года назад, кст", "тильт",
     "скучаю по временам, когда меня еще не было", "нахуя я вообще живу, не понимаю"];
 const answer_phrases = ["хз", "нет", "да", "не шарю", "именно"];
@@ -26,12 +27,16 @@ const stickers = ["CAACAgEAAxkBAAIDHWLX-hqPVw8oizd6OzNJHEJemgECAAKVAQACKYKQR7G_e
 
 let counter = 0;// let >= var
 
-bot.onText(/\/start/, function (msg, match) {
-    bot.sendMessage(msg.chat.id, "Привет, я бот Антон. Я буду отвечать на ваши сообщения вместо Антона Басана)");
+bot.onText(/\/start/, function (msg) {
+    bot.sendMessage(msg.chat.id, "привет, я бот Антон.\nя буду отвечать на ваши сообщения вместо Антона Басана)");
 });
 
-bot.onText(/\/dad/, function (msg, match) {
-    bot.sendMessage(msg.chat.id, "@MX1010A");
+bot.onText(/\/info/, function (msg) {
+    bot.sendMessage(msg.chat.id, "моя задача - отвечать на ваши сообщения вместо Антона Басана.\nтекущая версия бота: 0.6.9");
+});
+
+bot.onText(/\/dad/, function (msg) {
+    bot.sendMessage(msg.chat.id, "@MX1010A, кому-то потребовался более осмысленный ответ, чем обычно)");
 });
 
 /*bot.onText(/\/echo (.+)/, (msg, match) => {
@@ -81,6 +86,33 @@ bot.on('message', (msg) => {
         bot.sendSticker(chatId, stickers[rand], {reply_to_message_id: replyId});
     }
     counter++;
+});
+
+bot.on('message', (msg) => { //use regexps
+    if ((msg.text === "/start" || msg.text === "/info" || msg.text === "/dad" || msg.from.username === 'MX1010A')) return; //!!!
+    const chatId = msg.chat.id;
+    const replyId = msg.message_id;
+    console.log(msg.text)
+
+    if (msg.text.endsWith("?")) {
+        const rand = random(answer_phrases.length - 1);
+        bot.sendMessage(chatId, answer_phrases[rand], {reply_to_message_id: replyId});
+    } else if (msg.text.includes("рус") && msg.text !== "рус") {
+        const rand = random(rus_phrases.length - 1);
+        bot.sendMessage(chatId, rus_phrases[rand], {reply_to_message_id: replyId});
+    }
+
+    if (msg.text.toLowerCase() !== "пошел нахуй" || msg.text.toLowerCase() !== "иди нахуй") {
+        bot.sendMessage(chatId, "своим помахуй", {reply_to_message_id: replyId});
+    } else if (msg.text.toLowerCase().endsWith("тебе в рот попал")) {
+        bot.sendMessage(chatId, "а я головку откусил и из нее суп сварил", {reply_to_message_id: replyId});
+    }
+
+    if (msg.text.toLowerCase() !== "пидора ответ") {
+        bot.sendMessage(chatId, "шлюхи аргумент", {reply_to_message_id: replyId});
+    } else if (msg.text.toLowerCase().endsWith("пидор обнаружен")) {
+            bot.sendMessage(chatId, "пидор засекречен, твой анал не вечен", {reply_to_message_id: replyId});
+    }
 });
 
 function random(maxValue) {
