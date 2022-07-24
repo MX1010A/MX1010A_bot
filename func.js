@@ -50,39 +50,20 @@ bot.onText(/\/dad/, function (msg) {
     bot.sendMessage(chatId, resp);
 });*/
 
-// Listen for any kind of message. There are different kinds of messages.
 bot.on('message', (msg) => {
-    if((msg.text === "/start" || msg.text === "/echo" || msg.from.username === 'MX1010A')) return; //!!!
+    if((msg.text === "/start" || msg.text === "/info" || msg.text === "/dad" || msg.from.username === 'MX1010A')) return; //!!!
     const chatId = msg.chat.id;
+    const replyId = msg.message_id;
 
     if(counter === 100) {
         counter = 0;
         const rand = Math.round(Math.random() * dead_phrases.length);
-
         bot.sendMessage(chatId, dead_phrases[rand]);
-    }
-    else if(msg.text.endsWith("?")) {
-        const replyId = msg.message_id;
-        const rand = Math.round(Math.random() * (answer_phrases.length - 1));
-
-        bot.sendMessage(chatId, answer_phrases[rand], {reply_to_message_id: replyId});
-    }
-    else if((msg.text.includes("рус") && msg.text !== "рус") || (msg.text.includes("рос") && msg.text !== "рос")) {
-        const replyId = msg.message_id;
-        const rand = Math.round(Math.random() * (rus_phrases.length - 1));
-
-        bot.sendMessage(chatId, rus_phrases[rand], {reply_to_message_id: replyId});
-    }
-    else if (Math.round(Math.random() * 25) === 1) {
-        const replyId = msg.message_id;
+    } else if (Math.round(Math.random() * 30) === 1) {
         const rand = Math.round(Math.random() * (default_phrases.length - 1));
-
         bot.sendMessage(chatId, default_phrases[rand], {reply_to_message_id: replyId});
-    }
-    else if (Math.round(Math.random() * 35) === 1) {
-        const replyId = msg.message_id;
+    } else if (Math.round(Math.random() * 40) === 1) {
         const rand = Math.round(Math.random() * (stickers.length - 1));
-
         bot.sendSticker(chatId, stickers[rand], {reply_to_message_id: replyId});
     }
     counter++;
