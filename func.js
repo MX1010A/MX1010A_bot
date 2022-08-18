@@ -1,5 +1,5 @@
 const TelegramBot = require('node-telegram-bot-api');
-const token = process.env.BOT_TOKEN;
+const token = "5439079424:AAE5Z6V2xVCuZm_RXlZUP7eNpzP5ScyVqDs"; //process.env.BOT_TOKEN;
 const bot = new TelegramBot(token, {polling: true});
 
 const default_phrases = ["ого", "лааадно", "найс", "справедливо", "туда его", "реально", "хвазхавхзвхза", "норм", "мдааа",
@@ -7,7 +7,7 @@ const default_phrases = ["ого", "лааадно", "найс", "справед
     "лааааадно", "похуй"];
 const dead_phrases = ["после такого хочется сдохнуть", "я умер 2 года назад, кст", "тильт",
     "скучаю по временам, когда меня еще не было", "нахуя я вообще живу, не понимаю", "когда я уже умру блять"];
-const answer_phrases = ["хз", "нет", "да", "не шарю", "именно"];
+const answer_phrases = ["хз", "¯\\_(ツ)_/¯", "ебу", "не шарю", "именно", "нет", "да"];
 const rus_phrases = ["я рот ебал этой русни", "да когда уже эта русня вымрет нахуй", "бля, русские назад",
     "вот бы ракету в эту русню пустить"];
 const stickers = ["CAACAgEAAxkBAAIDHWLX-hqPVw8oizd6OzNJHEJemgECAAKVAQACKYKQR7G_efofu-dPKQQ",
@@ -32,7 +32,7 @@ bot.onText(/\/start/, function (msg) {
 });
 
 bot.onText(/\/info/, function (msg) {
-    bot.sendMessage(msg.chat.id, "моя задача - отвечать на ваши сообщения вместо Антона Басана.\nтекущая версия бота: 0.6.9");
+    bot.sendMessage(msg.chat.id, "моя задача - отвечать на ваши сообщения вместо Антона Басана.\nтекущая версия бота: 4.2.0");
 });
 
 bot.onText(/\/dad/, function (msg) {
@@ -54,47 +54,10 @@ bot.onText(/\/dad/, function (msg) {
 bot.on('message', (msg) => {
     if((msg.text === "/start" || msg.text === "/echo" || msg.from.username === 'MX1010A')) return; //!!!
     const chatId = msg.chat.id;
-
-    if(counter === 100) {
-        counter = 0;
-        const rand = Math.round(Math.random() * dead_phrases.length);
-
-        bot.sendMessage(chatId, dead_phrases[rand]);
-    }
-    else if(msg.text.endsWith("?")) {
-        const replyId = msg.message_id;
-        const rand = Math.round(Math.random() * (answer_phrases.length - 1));
-
-        bot.sendMessage(chatId, answer_phrases[rand], {reply_to_message_id: replyId});
-    }
-    else if((msg.text.includes("рус") && msg.text !== "рус") || (msg.text.includes("рос") && msg.text !== "рос")) {
-        const replyId = msg.message_id;
-        const rand = Math.round(Math.random() * (rus_phrases.length - 1));
-
-        bot.sendMessage(chatId, rus_phrases[rand], {reply_to_message_id: replyId});
-    }
-    else if (Math.round(Math.random() * 25) === 1) {
-        const replyId = msg.message_id;
-        const rand = Math.round(Math.random() * (default_phrases.length - 1));
-
-        bot.sendMessage(chatId, default_phrases[rand], {reply_to_message_id: replyId});
-    }
-    else if (Math.round(Math.random() * 35) === 1) {
-        const replyId = msg.message_id;
-        const rand = Math.round(Math.random() * (stickers.length - 1));
-
-        bot.sendSticker(chatId, stickers[rand], {reply_to_message_id: replyId});
-    }
-    counter++;
-});
-
-bot.on('message', (msg) => { //use regexps
-    if ((msg.text === "/start" || msg.text === "/info" || msg.text === "/dad" || msg.from.username === 'MX1010A')) return; //!!!
-    const chatId = msg.chat.id;
     const replyId = msg.message_id;
-    console.log(msg.text)
+    console.log(msg.text);
 
-    if (msg.text.endsWith("?")) {
+    if (msg.text.endsWith("?") && random(3) === 1) {
         const rand = random(answer_phrases.length - 1);
         bot.sendMessage(chatId, answer_phrases[rand], {reply_to_message_id: replyId});
     } else if (msg.text.includes("рус") && msg.text !== "рус") {
@@ -102,17 +65,33 @@ bot.on('message', (msg) => { //use regexps
         bot.sendMessage(chatId, rus_phrases[rand], {reply_to_message_id: replyId});
     }
 
-    if (msg.text.toLowerCase() === "пошел нахуй" || msg.text.toLowerCase() === "иди нахуй") {
+    else if (msg.text.toLowerCase() === "пошел нахуй" || msg.text.toLowerCase() === "иди нахуй") {
         bot.sendMessage(chatId, "своим помахуй", {reply_to_message_id: replyId});
     } else if (msg.text.toLowerCase().endsWith("тебе в рот попал")) {
         bot.sendMessage(chatId, "а я головку откусил и из нее суп сварил", {reply_to_message_id: replyId});
     }
 
-    if (msg.text.toLowerCase() === "пидора ответ") {
+    else if (msg.text.toLowerCase() === "пидора ответ") {
         bot.sendMessage(chatId, "шлюхи аргумент", {reply_to_message_id: replyId});
     } else if (msg.text.toLowerCase().endsWith("пидор обнаружен")) {
-            bot.sendMessage(chatId, "пидор засекречен, твой анал не вечен", {reply_to_message_id: replyId});
+        bot.sendMessage(chatId, "пидор засекречен, твой анал не вечен", {reply_to_message_id: replyId});
+    } else if (msg.text.toLowerCase() === "твоей мамы здесь нет" || msg.text.toLowerCase() === "твоей мамы тут нет") {
+        bot.sendMessage(chatId, "есть зато твоя: берет в ротик у меня)", {reply_to_message_id: replyId});
     }
+
+    else if (random(100) === 1) {
+        counter = 0;
+        const rand = random(dead_phrases.length - 1);
+        bot.sendMessage(chatId, dead_phrases[rand]);
+    } else if (random(30) === 1) {
+        const rand = random(default_phrases.length - 1);
+        bot.sendMessage(chatId, default_phrases[rand], {reply_to_message_id: replyId});
+    } else if (random(40) === 1) {
+        const rand = random(stickers.length - 1);
+        bot.sendSticker(chatId, stickers[rand], {reply_to_message_id: replyId});
+    }
+
+    counter++;
 });
 
 function random(maxValue) {
