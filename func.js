@@ -9,8 +9,9 @@ const dead_phrases = ["после такого хочется сдохнуть",
     "скучаю по временам, когда меня еще не было", "нахуя я вообще живу, не понимаю", "когда я уже умру блять"];
 const answer_phrases = ["хз", "¯\\_(ツ)_/¯", "ебу", "не шарю", "именно", "нет", "да"];
 const rus_phrases = ["я рот ебал этой русни", "да когда уже эта русня вымрет нахуй", "бля, русские назад",
-    "вот бы ракету в эту русню пустить"];
-const stickers = ["CAACAgEAAxkBAAIDHWLX-hqPVw8oizd6OzNJHEJemgECAAKVAQACKYKQR7G_efofu-dPKQQ",
+    "вот бы ракету в эту русню пустить", "давно русню с днем бавовны не поздравляли"];
+const stickers = [
+    "CAACAgEAAxkBAAIDHWLX-hqPVw8oizd6OzNJHEJemgECAAKVAQACKYKQR7G_efofu-dPKQQ",
     "CAACAgQAAxkBAAIDkmLYAAEMCIMdKBvDUVgcXolN095V6QACXAADFXbpB2ZqgU0Oc4fvKQQ",
     "CAACAgIAAxkBAAIDk2LYAAFCkBz315sR9XR_leDsL5IZXwACCRgAAkfIIUkvxYh7vHYguikE",
     "CAACAgEAAxkBAAIDlGLYAAFmsRwVjiL1lU86C7iqf12SAgACsQEAAnY3dj-kdqoozr_pcykE",
@@ -25,7 +26,7 @@ const stickers = ["CAACAgEAAxkBAAIDHWLX-hqPVw8oizd6OzNJHEJemgECAAKVAQACKYKQR7G_e
     "CAACAgIAAxkBAAIDoGLYAdtrrG8FxrBjCRm3PEULHRIPAAL3EQACYnP5STHVSE7pilmUKQQ",
     "CAACAgIAAxkBAAIDomLYAgfRnnsLwNI-SKCtH-nlNVb1AAI5AAPhjpgt1pVtE3e4YMApBA"];
 
-let counter = 0;// let >= var
+let counter = 0; // let >= var
 
 bot.onText(/\/start/, function (msg) {
     bot.sendMessage(msg.chat.id, "привет, я бот Антон.\nя буду отвечать на ваши сообщения вместо Антона Басана)");
@@ -50,9 +51,9 @@ bot.onText(/\/dad/, function (msg) {
     bot.sendMessage(chatId, resp);
 });*/
 
-// Listen for any kind of message. There are different kinds of messages.
-bot.on('message', (msg) => {
-    if((msg.text === "/start" || msg.text === "/echo" || msg.from.username === 'MX1010A')) return; //!!!
+bot.on('message', (msg) => { //use regexps
+    if ((msg.text === "/start" || msg.text === "/info" || msg.text === "/dad" || msg.from.username === "MX1010A" || msg.forward_date !== undefined)) return; //!!!
+
     const chatId = msg.chat.id;
     const replyId = msg.message_id;
     console.log(msg.text);
